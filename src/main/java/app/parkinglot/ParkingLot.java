@@ -41,6 +41,8 @@ public class ParkingLot {
 
     @Override
     public String toString() {
-        return "Totale posti: " + getNumberParkingSpots() +".\t " + parkingRows;
+        return "Totale posti: " + getNumberParkingSpots()
+                + ".\tAltezza non sfruttata: " + (heightField - heightFieldUsed)
+                + ".\t " + parkingRows;
     }
 }

@@ -74,18 +74,21 @@ public class Algorithm {
 //        System.out.println(actualSolution);
     }
 
-    // TODO: poi da cambiare in modo che ritorni un array con i migliori 3 risultati
     public ParkingLot executeFillByAngle(float angle, boolean doubleLine){
+        ParkingLot thisLayoutSolution = new ParkingLot(heigthField, widthField);
         ParkingRow parkingRow;
         if(doubleLine){
             parkingRow = new DoubleParkingRow(widthField, heightSpot, widthSpot, angle);
+            // the first row must be a single row
+            SingleParkingRow firstSingleRow = new SingleParkingRow(widthField, heightSpot, widthSpot, angle);
+            if(heightFieldUsed + firstSingleRow.getHeigthRowTotal()<=heigthField){
+                thisLayoutSolution.addParkingRow(firstSingleRow);
+                heightFieldUsed += firstSingleRow.getHeigthRowTotal();
+            }
         }else{
             parkingRow = new SingleParkingRow(widthField, heightSpot, widthSpot, angle);
         }
 
-        // TODO: aggiungere che prima linea deve essere singola
-
-        ParkingLot thisLayoutSolution = new ParkingLot(heigthField, widthField);
         while((heightFieldUsed + parkingRow.getHeigthRowTotal()) <= heigthField){
             heightFieldUsed += parkingRow.getHeigthRowTotal();
             thisLayoutSolution.addParkingRow(parkingRow);
@@ -94,9 +97,6 @@ public class Algorithm {
         heightFieldUsed = 0;
         return thisLayoutSolution;
     }
-
-    // TODO: scelto un angolo calcolare la disposizione con quella tipologia
-    //  (devo mettere che per l'ultima riga deve controllare se ce ne sono di altre?
 
     // TODO: creare algoritmo problema zaino con altezzaPosti / numeroPosti
 }
