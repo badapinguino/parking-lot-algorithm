@@ -39,8 +39,12 @@ public class ParkingSpot {
     }
 
     private void calcUnusedL() {
-        this.unusedL = (float) (width * Math.cos(angleRadians));
-        this.unusedL = (float) (Math.round(this.unusedL * 1000.0) / 1000.0);
+        if(angleRadians==0){
+            this.unusedL = 0;
+        }else{
+            this.unusedL = (float) (width * Math.cos(angleRadians));
+            this.unusedL = (float) (Math.round(this.unusedL * 1000.0) / 1000.0);
+        }
     }
 
     public float getAngleDegrees() {
