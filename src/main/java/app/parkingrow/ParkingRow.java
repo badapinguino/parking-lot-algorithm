@@ -79,6 +79,7 @@ public class ParkingRow {
         }else{
             this.unusedRowSpace = widthRow%parkingSpot.getParkingEntranceWidth();
         }
+        this.unusedRowSpace = (float) (Math.round(this.unusedRowSpace * 1000.0) / 1000.0);
     }
 
     public ParkingSpot getParkingSpot() {
