@@ -1,12 +1,16 @@
 package app;
 
+import app.parkinglot.ParkingLot;
 import app.parkingrow.DoubleParkingRow;
 import app.parkingrow.ParkingRow;
+import app.parkingrow.SingleParkingRow;
 import app.parkingspot.ParkingSpot;
+
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String args[]){
-        System.out.println("Hello algorithm");
+        System.out.println("Hello algorithm!");
         stampaParkingSpots();
         System.out.println("\n\n");
         stampaParkingRows();
@@ -14,7 +18,11 @@ public class Main {
         stampaDoubleParkingRows();
         System.out.println("\n\n");
         Algorithm algorithm = new Algorithm(31.40f, 30.4f, 5, 2.5f);
-        algorithm.execute();
+        ParkingLot orderedByNumberOfParking = algorithm.executeOrderingByNumberParking();
+        System.out.println(orderedByNumberOfParking);
+        System.out.println("\n\n");
+        ParkingLot layoutParking60 = algorithm.executeFillByAngle(60, true);
+        System.out.println(layoutParking60);
     }
 
     public static void stampaParkingSpots(){
@@ -64,47 +72,47 @@ public class Main {
     }
 
     public static void stampaParkingRows(){
-        ParkingRow parkingRow90 = new ParkingRow(20, 5, 2.5f, 90);
+        SingleParkingRow singleParkingRow90 = new SingleParkingRow(20, 5, 2.5f, 90);
         System.out.println(
-                "90°\taltezzaTotale: " + parkingRow90.getHeigthRowTotal()
-                + "\tlength: " + parkingRow90.getParkingSpot().getUsedL()
-                + "\tmanLength: " + parkingRow90.getManLength()
-                + "\t\tTotale posti: " + parkingRow90.getNumberParkingSpots()
+                "90°\taltezzaTotale: " + singleParkingRow90.getHeigthRowTotal()
+                + "\tlength: " + singleParkingRow90.getParkingSpot().getUsedL()
+                + "\tmanLength: " + singleParkingRow90.getManLength()
+                + "\t\tTotale posti: " + singleParkingRow90.getNumberParkingSpots()
         );
-        ParkingRow parkingRow75 = new ParkingRow(20, 5, 2.5f, 75);
+        SingleParkingRow singleParkingRow75 = new SingleParkingRow(20, 5, 2.5f, 75);
         System.out.println(
-                "75°\taltezzaTotale: " + parkingRow75.getHeigthRowTotal()
-                        + "\tlength: " + parkingRow75.getParkingSpot().getUsedL()
-                        + "\tmanLength: " + parkingRow75.getManLength()
-                        + "\t\tTotale posti: " + parkingRow75.getNumberParkingSpots()
+                "75°\taltezzaTotale: " + singleParkingRow75.getHeigthRowTotal()
+                        + "\tlength: " + singleParkingRow75.getParkingSpot().getUsedL()
+                        + "\tmanLength: " + singleParkingRow75.getManLength()
+                        + "\t\tTotale posti: " + singleParkingRow75.getNumberParkingSpots()
         );
-        ParkingRow parkingRow60 = new ParkingRow(20, 5, 2.5f, 60);
+        SingleParkingRow singleParkingRow60 = new SingleParkingRow(20, 5, 2.5f, 60);
         System.out.println(
-                "60°\taltezzaTotale: " + parkingRow60.getHeigthRowTotal()
-                        + "\tlength: " + parkingRow60.getParkingSpot().getUsedL()
-                        + "\tmanLength: " + parkingRow60.getManLength()
-                        + "\t\tTotale posti: " + parkingRow60.getNumberParkingSpots()
+                "60°\taltezzaTotale: " + singleParkingRow60.getHeigthRowTotal()
+                        + "\tlength: " + singleParkingRow60.getParkingSpot().getUsedL()
+                        + "\tmanLength: " + singleParkingRow60.getManLength()
+                        + "\t\tTotale posti: " + singleParkingRow60.getNumberParkingSpots()
         );
-        ParkingRow parkingRow45 = new ParkingRow(20, 5, 2.5f, 45);
+        SingleParkingRow singleParkingRow45 = new SingleParkingRow(20, 5, 2.5f, 45);
         System.out.println(
-                "45°\taltezzaTotale: " + parkingRow45.getHeigthRowTotal()
-                        + "\tlength: " + parkingRow45.getParkingSpot().getUsedL()
-                        + "\tmanLength: " + parkingRow45.getManLength()
-                        + "\t\tTotale posti: " + parkingRow45.getNumberParkingSpots()
+                "45°\taltezzaTotale: " + singleParkingRow45.getHeigthRowTotal()
+                        + "\tlength: " + singleParkingRow45.getParkingSpot().getUsedL()
+                        + "\tmanLength: " + singleParkingRow45.getManLength()
+                        + "\t\tTotale posti: " + singleParkingRow45.getNumberParkingSpots()
         );
-        ParkingRow parkingRow30 = new ParkingRow(20, 5, 2.5f, 30);
+        SingleParkingRow singleParkingRow30 = new SingleParkingRow(20, 5, 2.5f, 30);
         System.out.println(
-                "30°\taltezzaTotale: " + parkingRow30.getHeigthRowTotal()
-                        + "\tlength: " + parkingRow30.getParkingSpot().getUsedL()
-                        + "\tmanLength: " + parkingRow30.getManLength()
-                        + "\t\tTotale posti: " + parkingRow30.getNumberParkingSpots()
+                "30°\taltezzaTotale: " + singleParkingRow30.getHeigthRowTotal()
+                        + "\tlength: " + singleParkingRow30.getParkingSpot().getUsedL()
+                        + "\tmanLength: " + singleParkingRow30.getManLength()
+                        + "\t\tTotale posti: " + singleParkingRow30.getNumberParkingSpots()
         );
-        ParkingRow parkingRow0 = new ParkingRow(20, 5, 2.5f, 0);
+        SingleParkingRow singleParkingRow0 = new SingleParkingRow(20, 5, 2.5f, 0);
         System.out.println(
-                "0°\taltezzaTotale: " + parkingRow0.getHeigthRowTotal()
-                        + "\tlength: " + parkingRow0.getParkingSpot().getUsedL()
-                        + "\tmanLength: " + parkingRow0.getManLength()
-                        + "\t\tTotale posti: " + parkingRow0.getNumberParkingSpots()
+                "0°\taltezzaTotale: " + singleParkingRow0.getHeigthRowTotal()
+                        + "\tlength: " + singleParkingRow0.getParkingSpot().getUsedL()
+                        + "\tmanLength: " + singleParkingRow0.getManLength()
+                        + "\t\tTotale posti: " + singleParkingRow0.getNumberParkingSpots()
         );
     }
 

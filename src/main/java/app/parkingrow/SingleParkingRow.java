@@ -2,7 +2,8 @@ package app.parkingrow;
 
 import app.parkingspot.ParkingSpot;
 
-public class DoubleParkingRow implements ParkingRow{
+// classe basata su larghezza, la lunghezza la considero nell'algoritmo
+public class SingleParkingRow implements ParkingRow{
     // il tipo di parcheggio utilizzato
     private ParkingSpot parkingSpot;
     // larghezza della riga di parcheggi
@@ -17,9 +18,9 @@ public class DoubleParkingRow implements ParkingRow{
     // space not used dividing the row by all the spots inside it.
     private float unusedRowSpace;
 
-    public DoubleParkingRow(float widthRow, float heigthSpot, float widthSpot, float angleDegrees) {
+    public SingleParkingRow(float widthRow, float heigthSpot, float widthSpot, float angleDegrees) {
         parkingSpot = new ParkingSpot(heigthSpot, widthSpot, angleDegrees);
-        this.widthRow = widthRow;
+        setWidthRow(widthRow);
         calcNumberParkingSpots();
         calcManLength(angleDegrees);
         calcHeigthRowTotal();
@@ -34,11 +35,15 @@ public class DoubleParkingRow implements ParkingRow{
     // Calcolo il numero di parcheggi disponibili arrotondando per difetto
     private void calcNumberParkingSpots() {
         float numParkSpotsFloat = (float) Math.floor((widthRow - parkingSpot.getUnusedW()) / parkingSpot.getParkingEntranceWidth());
-        this.numberParkingSpots = ((int) numParkSpotsFloat) * 2;
+        this.numberParkingSpots = (int) numParkSpotsFloat;
     }
 
     public float getWidthRow() {
         return widthRow;
+    }
+
+    private void setWidthRow(float widthRow) {
+        this.widthRow = widthRow;
     }
 
     public float getHeigthRowTotal() {
@@ -46,7 +51,7 @@ public class DoubleParkingRow implements ParkingRow{
     }
 
     private void calcHeigthRowTotal() {
-        this.heigthRowTotal = manLength + ((parkingSpot.getUsedL() * 2) - parkingSpot.getUnusedL());
+        this.heigthRowTotal = manLength + parkingSpot.getUsedL();
         this.heigthRowTotal = (float) (Math.round(this.heigthRowTotal * 1000.0) / 1000.0);
     }
 
@@ -83,7 +88,7 @@ public class DoubleParkingRow implements ParkingRow{
 
     @Override
     public String toString() {
-        return "Double row of " + parkingSpot.getAngleDegrees() + "°. Number of spots: " + getNumberParkingSpots()
+        return "Row of " + parkingSpot.getAngleDegrees() + "°. Number of spots: " + getNumberParkingSpots()
                 + ". Unused row space: " + unusedRowSpace;
     }
 }

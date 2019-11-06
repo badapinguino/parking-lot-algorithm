@@ -1,8 +1,12 @@
 package app;
 
+import app.parkinglot.ParkingLot;
+import app.parkingrow.DoubleParkingRow;
 import app.parkingrow.ParkingRow;
+import app.parkingrow.SingleParkingRow;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Algorithm {
 
@@ -18,19 +22,81 @@ public class Algorithm {
         this.widthField = widthField;
         this.heightSpot = heigthSpot;
         this.widthSpot = widthSpot;
+        heightFieldUsed = 0;
     }
-    // TODO: poi da cambiare in modo che ritorni un array con i migliori 3 risultati
-    public void execute(){
-        ArrayList<ParkingRow> actualSolution = new ArrayList<ParkingRow>();
-//        for(int i=0; ; i++){
-            for (int angle : angles) {
-                ParkingRow parkingRow = new ParkingRow(widthField, heightSpot, widthSpot, angle);
-                while((heightFieldUsed+parkingRow.getHeigthRowTotal())<=heigthField){
-                    heightFieldUsed += parkingRow.getHeigthRowTotal();
-                    actualSolution.add(parkingRow);
-                }
+
+    public ParkingLot executeOrderingByNumberParking(){
+        // order the possible angles by the one that can provide a row with most spots.
+        ArrayList<ParkingRow> parkingRows = new ArrayList<ParkingRow>();
+        ArrayList<SingleParkingRow> singleParkingRows = new ArrayList<>();
+        for (int angle : angles) {
+            SingleParkingRow singleParkingRow = new SingleParkingRow(widthField, heightSpot, widthSpot, angle);
+            parkingRows.add(singleParkingRow);
+            singleParkingRows.add(singleParkingRow);
+        }
+        for (int angle : angles) {
+            DoubleParkingRow doubleParkingRow = new DoubleParkingRow(widthField, heightSpot, widthSpot, angle);
+            parkingRows.add(doubleParkingRow);
+        }
+        parkingRows.sort(Comparator.comparing(ParkingRow::getNumberParkingSpots).reversed());
+        singleParkingRows.sort(Comparator.comparing(ParkingRow::getNumberParkingSpots).reversed());
+
+        ParkingLot bestSolution = new ParkingLot(heigthField, widthField);
+
+        // the first row must be a single row
+        for (SingleParkingRow singleParkingRow : singleParkingRows){
+            if(singleParkingRow.getHeigthRowTotal() <= heigthField){
+                bestSolution.addParkingRow(singleParkingRow);
+                heightFieldUsed += singleParkingRow.getHeigthRowTotal();
+                break;
             }
+        }
+
+        for( ParkingRow parkRow : parkingRows){
+            while((heightFieldUsed + parkRow.getHeigthRowTotal()) <= heigthField){
+                heightFieldUsed += parkRow.getHeigthRowTotal();
+                bestSolution.addParkingRow(parkRow);
+            }
+        }
+        heightFieldUsed = 0;
+        return bestSolution;
+
+
+
+//        ArrayList<ParkingRow> actualSolution = new ArrayList<ParkingRow>();
+//        for (int angle : angles) {
+//            ParkingRow parkingRow = new ParkingRow(widthField, heightSpot, widthSpot, angle);
+//            while((heightFieldUsed + parkingRow.getHeigthRowTotal()) <= heigthField){
+//                heightFieldUsed += parkingRow.getHeigthRowTotal();
+//                actualSolution.add(parkingRow);
+//            }
 //        }
-        System.out.println(actualSolution);
+//        System.out.println(actualSolution);
     }
+
+    // TODO: poi da cambiare in modo che ritorni un array con i migliori 3 risultati
+    public ParkingLot executeFillByAngle(float angle, boolean doubleLine){
+        ParkingRow parkingRow;
+        if(doubleLine){
+            parkingRow = new DoubleParkingRow(widthField, heightSpot, widthSpot, angle);
+        }else{
+            parkingRow = new SingleParkingRow(widthField, heightSpot, widthSpot, angle);
+        }
+
+        // TODO: aggiungere che prima linea deve essere singola
+
+        ParkingLot thisLayoutSolution = new ParkingLot(heigthField, widthField);
+        while((heightFieldUsed + parkingRow.getHeigthRowTotal()) <= heigthField){
+            heightFieldUsed += parkingRow.getHeigthRowTotal();
+            thisLayoutSolution.addParkingRow(parkingRow);
+        }
+
+        heightFieldUsed = 0;
+        return thisLayoutSolution;
+    }
+
+    // TODO: scelto un angolo calcolare la disposizione con quella tipologia
+    //  (devo mettere che per l'ultima riga deve controllare se ce ne sono di altre?
+
+    // TODO: creare algoritmo problema zaino con altezzaPosti / numeroPosti
 }
