@@ -100,10 +100,10 @@ public class Algorithm {
         return thisLayoutSolution;
     }
 
-    // TODO: creare algoritmo problema zaino con altezzaPosti / numeroPosti
-
-    // it's the knapsack problem but the algorithm used here is different from the real knapsack problem one
-    public ParkingLot executeAlmostKnapsack(){
+    // It's the knapsack problem but the algorithm used here is different from the real knapsack problem one.
+    // This is a greedy solution. It founds a local optimum not the global one
+    // Execution time: O(4N) + the sorting algorithm which I don't know how much time it costs.
+    public ParkingLot executeKnapsackGreedy(){
         heightFieldUsed = 0;
         // order the possible angles by the one that can provide a row with most spots.
         ArrayList<ParkingRow> parkingRows = new ArrayList<ParkingRow>();
@@ -141,4 +141,8 @@ public class Algorithm {
         return bestSolution;
     }
 
+    // greedy knapsack doesn't work so well, so we need to implement a real knapsack algorithm
+//    public ParkingLot executeKnapsack(){
+//
+//    }
 }

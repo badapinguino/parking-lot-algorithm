@@ -23,7 +23,7 @@ public class Main {
         System.out.println("\n\n");
         ParkingLot layoutParking60 = algorithm.executeFillByAngle(60, true);
         System.out.println(layoutParking60);
-        ParkingLot orderedByAlmostKnapsack = algorithm.executeAlmostKnapsack();
+        ParkingLot orderedByAlmostKnapsack = algorithm.executeKnapsackGreedy();
         System.out.println(orderedByAlmostKnapsack);
     }
 
