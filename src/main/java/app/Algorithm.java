@@ -102,7 +102,7 @@ public class Algorithm {
 
     // It's the knapsack problem but the algorithm used here is different from the real knapsack problem one.
     // This is a greedy solution. It founds a local optimum not the global one
-    // Execution time: O(4N) + the sorting algorithm which I don't know how much time it costs.
+    // Execution time: O(4N) + the sorting algorithm which I don't know how much time it costs. Probably N(logN)
     public ParkingLot executeKnapsackGreedy(){
         heightFieldUsed = 0;
         // order the possible angles by the one that can provide a row with most spots.
