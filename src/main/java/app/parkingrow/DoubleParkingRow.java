@@ -16,6 +16,8 @@ public class DoubleParkingRow implements ParkingRow{
     private float manLength;
     // space not used dividing the row by all the spots inside it.
     private float unusedRowSpace;
+    // ratio between number of spots and used space
+    private float spotsSpaceRatio;
 
     public DoubleParkingRow(float widthRow, float heigthSpot, float widthSpot, float angleDegrees) {
         parkingSpot = new ParkingSpot(heigthSpot, widthSpot, angleDegrees);
@@ -79,6 +81,15 @@ public class DoubleParkingRow implements ParkingRow{
 
     public ParkingSpot getParkingSpot() {
         return parkingSpot;
+    }
+
+    public float getSpotsSpaceRatio() {
+        return spotsSpaceRatio;
+    }
+
+    private void calcSpotsSpaceRatio() {
+        this.spotsSpaceRatio = numberParkingSpots / heigthRowTotal;
+//        this.spotsSpaceRatio = heigthRowTotal / numberParkingSpots;
     }
 
     @Override

@@ -9,5 +9,6 @@ public interface ParkingRow {
     float getManLength();
     float getUnusedRowSpace();
     ParkingSpot getParkingSpot();
+    float getSpotsSpaceRatio();
     String toString();
 }

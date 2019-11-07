@@ -26,6 +26,7 @@ public class Algorithm {
     }
 
     public ParkingLot executeOrderingByNumberParking(){
+        heightFieldUsed = 0;
         // order the possible angles by the one that can provide a row with most spots.
         ArrayList<ParkingRow> parkingRows = new ArrayList<ParkingRow>();
         ArrayList<SingleParkingRow> singleParkingRows = new ArrayList<>();
@@ -75,6 +76,7 @@ public class Algorithm {
     }
 
     public ParkingLot executeFillByAngle(float angle, boolean doubleLine){
+        heightFieldUsed = 0;
         ParkingLot thisLayoutSolution = new ParkingLot(heigthField, widthField);
         ParkingRow parkingRow;
         if(doubleLine){
@@ -99,4 +101,44 @@ public class Algorithm {
     }
 
     // TODO: creare algoritmo problema zaino con altezzaPosti / numeroPosti
+
+    // it's the knapsack problem but the algorithm used here is different from the real knapsack problem one
+    public ParkingLot executeAlmostKnapsack(){
+        heightFieldUsed = 0;
+        // order the possible angles by the one that can provide a row with most spots.
+        ArrayList<ParkingRow> parkingRows = new ArrayList<ParkingRow>();
+        ArrayList<SingleParkingRow> singleParkingRows = new ArrayList<>();
+        for (int angle : angles) {
+            SingleParkingRow singleParkingRow = new SingleParkingRow(widthField, heightSpot, widthSpot, angle);
+            parkingRows.add(singleParkingRow);
+            singleParkingRows.add(singleParkingRow);
+        }
+        for (int angle : angles) {
+            DoubleParkingRow doubleParkingRow = new DoubleParkingRow(widthField, heightSpot, widthSpot, angle);
+            parkingRows.add(doubleParkingRow);
+        }
+        parkingRows.sort(Comparator.comparing(ParkingRow::getSpotsSpaceRatio).reversed());
+        singleParkingRows.sort(Comparator.comparing(ParkingRow::getSpotsSpaceRatio).reversed());
+
+        ParkingLot bestSolution = new ParkingLot(heigthField, widthField);
+
+        // the first row must be a single row
+        for (SingleParkingRow singleParkingRow : singleParkingRows){
+            if(singleParkingRow.getHeigthRowTotal() <= heigthField){
+                bestSolution.addParkingRow(singleParkingRow);
+                heightFieldUsed += singleParkingRow.getHeigthRowTotal();
+                break;
+            }
+        }
+
+        for( ParkingRow parkRow : parkingRows){
+            while((heightFieldUsed + parkRow.getHeigthRowTotal()) <= heigthField){
+                heightFieldUsed += parkRow.getHeigthRowTotal();
+                bestSolution.addParkingRow(parkRow);
+            }
+        }
+        heightFieldUsed = 0;
+        return bestSolution;
+    }
+
 }
