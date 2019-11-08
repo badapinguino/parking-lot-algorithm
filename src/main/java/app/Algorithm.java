@@ -145,7 +145,8 @@ public class Algorithm {
     }
 
     // greedy knapsack doesn't work so well, so we need to implement a real knapsack algorithm
-//    public ParkingLot executeKnapsack(){
-//
-//    }
+    public ParkingLot executeKnapsack(){
+        // TODO: to implement
+        return null;
+    }
 }
