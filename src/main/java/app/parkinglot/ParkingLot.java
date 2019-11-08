@@ -5,6 +5,7 @@ import app.parkingrow.ParkingRow;
 import java.util.ArrayList;
 
 public class ParkingLot {
+    // A parking lot contains a list of many parking rows, that can be of different types.
     private ArrayList<ParkingRow> parkingRows;
 
     private float heightField;
@@ -21,6 +22,8 @@ public class ParkingLot {
         this.widthField = widthField;
     }
 
+    // Method to add a parking row to the parking lot,
+    // it increments the total number of parking spots and the heigth field used
     public void addParkingRow(ParkingRow parkingRow){
         if(parkingRow.getHeigthRowTotal() + heightFieldUsed <= heightField){
             parkingRows.add(parkingRow);

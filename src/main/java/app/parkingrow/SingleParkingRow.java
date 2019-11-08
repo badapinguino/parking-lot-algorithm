@@ -2,18 +2,18 @@ package app.parkingrow;
 
 import app.parkingspot.ParkingSpot;
 
-// classe basata su larghezza, la lunghezza la considero nell'algoritmo
+// class based on the width, the length will be considered in the parking lot and algorithm
 public class SingleParkingRow implements ParkingRow{
-    // il tipo di parcheggio utilizzato
+    // the parking type used
     private ParkingSpot parkingSpot;
-    // larghezza della riga di parcheggi
+    // parking row width
     private float widthRow;
-    // altezza della riga di parcheggi + corsia
+    // parking row height + manouver lane
     private float heigthRowTotal;
 
-    // numero dei parcheggi totali sulla riga
+    // total number of parking spots on the row
     private long numberParkingSpots;
-    // larghezza della corsia per lo spazio di manovra: length perché è vista come corsia in orizzontale quindi la lunghezza è l'altezza
+    // manouver lane width: it's called length because the lane is meant in horizontal, so the width is the length
     private float manLength;
     // space not used dividing the row by all the spots inside it.
     private float unusedRowSpace;
@@ -26,8 +26,9 @@ public class SingleParkingRow implements ParkingRow{
         calcNumberParkingSpots();
         calcManLength(angleDegrees);
         calcHeigthRowTotal();
-        // calcolare spazio laterale inutilizzato
+        // compute unused space, maybe it's not the correct way
         calcUnusedRowSpace();
+
         calcSpotsSpaceRatio();
     }
 
@@ -35,7 +36,7 @@ public class SingleParkingRow implements ParkingRow{
         return numberParkingSpots;
     }
 
-    // Calcolo il numero di parcheggi disponibili arrotondando per difetto
+    // Compute the available parking spots number, rounding down
     private void calcNumberParkingSpots() {
         float numParkSpotsFloat = (float) Math.floor((widthRow - parkingSpot.getUnusedW()) / parkingSpot.getParkingEntranceWidth());
         this.numberParkingSpots = (int) numParkSpotsFloat;
@@ -101,6 +102,5 @@ public class SingleParkingRow implements ParkingRow{
 
     private void calcSpotsSpaceRatio() {
         this.spotsSpaceRatio = numberParkingSpots / heigthRowTotal;
-//        this.spotsSpaceRatio = heigthRowTotal / numberParkingSpots;
     }
 }

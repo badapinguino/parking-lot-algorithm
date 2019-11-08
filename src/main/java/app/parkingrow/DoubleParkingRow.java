@@ -3,16 +3,16 @@ package app.parkingrow;
 import app.parkingspot.ParkingSpot;
 
 public class DoubleParkingRow implements ParkingRow{
-    // il tipo di parcheggio utilizzato
+    // the parking type used
     private ParkingSpot parkingSpot;
-    // larghezza della riga di parcheggi
+    // parking row width
     private float widthRow;
-    // altezza della riga di parcheggi + corsia
+    // parking row height + manouver lane
     private float heigthRowTotal;
 
-    // numero dei parcheggi totali sulla riga
+    // total number of parking spots on the row
     private long numberParkingSpots;
-    // larghezza della corsia per lo spazio di manovra: length perché è vista come corsia in orizzontale quindi la lunghezza è l'altezza
+    // manouver lane width: it's called length because the lane is meant in horizontal, so the width is the length
     private float manLength;
     // space not used dividing the row by all the spots inside it.
     private float unusedRowSpace;
@@ -25,7 +25,7 @@ public class DoubleParkingRow implements ParkingRow{
         calcNumberParkingSpots();
         calcManLength(angleDegrees);
         calcHeigthRowTotal();
-        // calcolare spazio laterale inutilizzato
+        // compute unused space, maybe it's not the correct way
         calcUnusedRowSpace();
     }
 
@@ -33,7 +33,7 @@ public class DoubleParkingRow implements ParkingRow{
         return numberParkingSpots;
     }
 
-    // Calcolo il numero di parcheggi disponibili arrotondando per difetto
+    // Compute the available parking spots number, rounding down
     private void calcNumberParkingSpots() {
         float numParkSpotsFloat = (float) Math.floor((widthRow - parkingSpot.getUnusedW()) / parkingSpot.getParkingEntranceWidth());
         this.numberParkingSpots = ((int) numParkSpotsFloat) * 2;
@@ -89,7 +89,6 @@ public class DoubleParkingRow implements ParkingRow{
 
     private void calcSpotsSpaceRatio() {
         this.spotsSpaceRatio = numberParkingSpots / heigthRowTotal;
-//        this.spotsSpaceRatio = heigthRowTotal / numberParkingSpots;
     }
 
     @Override

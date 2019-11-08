@@ -16,8 +16,8 @@ public class ParkingSpot {
     // usedL is the vertical space used in a parking spot.
     private float usedL;
 
-    // unusedW è lo spazio orizzontale inutilizzato in una riga di parcheggi.
-    // width not used by a parking slot  with an angle between 90° and 0°
+
+    // width not used by a parking slot with an angle between 90° and 0° excluded
     private float unusedW;
 
     public float getParkingEntranceWidth() {
@@ -90,6 +90,7 @@ public class ParkingSpot {
     }
 
     public void setAllRadians(float heigth, float width, float angleRadians){
+        // if park is road side then the standard size is 2.0mx6.0m
         if(angleRadians==0){
             this.heigth = (float) 6.0;
             this.width = (float) 2.0;
@@ -154,11 +155,7 @@ public class ParkingSpot {
             this.unusedW = (float) ((getHeigth() + b) * Math.cos(getAngleRadians()));
         }
         this.unusedW = (float) (Math.round(this.unusedW * 1000.0) / 1000.0);
-//        if(getAngleDegrees()==90){
-//            double b = getWidth() / Math.tan(getAngleRadians());
-//            this.unusedW = (float) (Math.round(unusedW * 1000.0) / 1000.0);
-//        }
     }
 
-    //TODO cambiare i valori massimi e minimi con dei final
+    //TODO change maximum and minimum values with some final variables
 }
